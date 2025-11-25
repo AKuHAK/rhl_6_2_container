@@ -32,7 +32,7 @@ RUN apt-get update && apt-get install -y curl && \
     done
 
 # Stage 1: Install RPMs into a filesystem
-FROM ghcr.io/uyjulian/rhl_6_2_container:latest AS builder
+FROM ghcr.io/akuhak/rhl_6_2_container:latest AS builder
 
 ARG WORK_DIR="/root"
 ARG BUILD_DIR="/build"

@@ -1,5 +1,5 @@
 # Stage 0: Download RPMs
-FROM debian:bullseye-slim AS downloader
+FROM uyjulian/rhl_6_2_container:latest
 
 ARG WORK_DIR="/root"
 ARG BUILD_DIR="/build"

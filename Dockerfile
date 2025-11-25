@@ -1,5 +1,7 @@
 # Stage 0: Download RPMs
-FROM uyjulian/rhl_6_2_container:latest
+FROM centos:6
+
+RUN yum install -y rpm yum && yum clean all
 
 ARG WORK_DIR="/root"
 ARG BUILD_DIR="/build"

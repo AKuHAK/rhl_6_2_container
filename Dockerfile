@@ -1,21 +1,16 @@
-# Base vintage environment
 FROM centos:6
 
-# Set environment variables
-ENV PS2BUILDROOT=/opt/ps2-buildroot
-ENV PATH=$PS2BUILDROOT:$PATH
+# Replace repos with vault.centos.org
+RUN sed -i 's|mirrorlist=http://mirrorlist.centos.org|#mirrorlist=http://mirrorlist.centos.org|g' /etc/yum.repos.d/CentOS-*.repo && \
+    sed -i 's|#baseurl=http://vault.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*.repo && \
+    yum clean all && yum -y update
 
-# Install basic build tools
+# Install build tools
 RUN yum -y groupinstall "Development Tools" && \
     yum -y install git wget bison flex texinfo python
 
-# Clone the PS2 buildroot repo
-RUN git clone https://github.com/jur/ps2-buildroot.git $PS2BUILDROOT
-
-WORKDIR $PS2BUILDROOT
-
-# Build everything
-# Buildroot may include scripts to fetch vintage PS2 toolchains automatically
-
+# Clone PS2 Buildroot
+RUN git clone https://github.com/jur/ps2-buildroot.git /opt/ps2-buildroot
+WORKDIR /opt/ps2-buildroot
 
 CMD ["/bin/bash"]
